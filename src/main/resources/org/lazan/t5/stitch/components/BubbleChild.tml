@@ -1,0 +1,5 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	<t:loop source="1..3">
+		<t:eventlink event="event1" context="literal:1">Event1</t:eventlink><br />
+	</t:loop>
+</div>

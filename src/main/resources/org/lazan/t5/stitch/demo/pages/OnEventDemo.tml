@@ -1,0 +1,100 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd" xmlns:p="tapestry:parameter">
+	<h3>On Event Mixin</h3>
+	The <code>onEvent</code> mixin attaches to a client element and listens to a clientside event
+	(eg click, change, keyup etc). When the event fires on the element, a the mixin fires a serverside event
+	via ajax and updates a <code>zone</code>. The mixin can pass any number of clientside field values
+	as well as a context to the serverside event.<br /><br />
+	
+	This mixin was inspired by the
+	<a href="http://jumpstart.doublenegative.com.au/jumpstart/examples/ajax/onevent">ZoneUpdater</a> mixin
+	from <a href="http://jumpstart.doublenegative.com.au/home.html">Tapestry JumpStart</a>
+	
+	<h4>Parameters:</h4>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Required</th>
+				<th>Default</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>clientEvent</td>
+				<td>false</td>
+				<td>event</td>
+				<td>Clientside event to listen to</td>
+			</tr>
+			<tr>
+				<td>event</td>
+				<td>true</td>
+				<td></td>
+				<td>Serverside event to fire</td>
+			</tr>
+			<tr>
+				<td>context</td>
+				<td>false</td>
+				<td></td>
+				<td>If provided, this will be the first argument in the serverside event</td>
+			</tr>
+			<tr>
+				<td>fields</td>
+				<td>false</td>
+				<td>clientId of the container<br/>(if it's a field)</td>
+				<td>
+					List of field clientIds. When the clientside event fires, the current clientside field values will
+					be passed to the serverside event.
+				</td>
+			</tr>
+			<tr>
+				<td>zone</td>
+				<td>true</td>
+				<td></td>
+				<td>Zone to update</td>
+			</tr>
+		</tbody>
+	</table>	
+
+	<h3>Demo</h3>
+	<t:block t:id="messageBlock">
+		<div class="alert alert-info">${message}</div>
+	</t:block>
+	<t:form autofocus="literal:false">
+		<div class="well">
+			<h4>Text Field</h4>
+			<t:textfield t:id="text" t:mixins="stitch/onEvent" event="keyup" zone="textZone" /><br />
+			<t:zone t:id="textZone" />
+		</div>
+
+		<div class="well">
+			<h4>Radio Group</h4>
+			<t:radiogroup t:id="radio">
+				Option 1 <t:radio t:mixins="stitch/onEvent" clientEvent="change" event="radioChange" 
+				                  zone="radioZone" value="literal:option1" /><br />
+				Option 2 <t:radio t:mixins="stitch/onEvent" clientEvent="change" event="radioChange"
+				                  zone="radioZone" value="literal:option2" /><br />
+			</t:radiogroup>
+			<t:zone t:id="radioZone" />
+		</div>
+
+		<div class="well">
+			<h4>Group of Fields</h4>
+			<t:loop source="groupFields" value="groupFieldName">
+				${groupFieldName}
+				<t:textfield t:id="groupField" clientId="prop:groupFieldName" t:mixins="stitch/onEvent"
+				             clientEvent="change" event="groupChange" zone="groupZone" 
+				             fields="groupFields" context="groupFieldName" /><br />
+			</t:loop>
+			<t:zone t:id="groupZone" />
+		</div>
+	</t:form>
+
+	<h3>Source</h3>
+	<t:stitch.tabGroup>
+		<t:stitch.codeTab source="classpath:org/lazan/t5/stitch/demo/pages/OnEventDemo.java" />
+		<t:stitch.codeTab source="classpath:org/lazan/t5/stitch/demo/pages/OnEventDemo.tml" />
+		<t:stitch.codeTab source="classpath:org/lazan/t5/stitch/mixins/OnEvent.java" />
+		<t:stitch.codeTab source="classpath:org/lazan/t5/stitch/mixins/OnEvent.js" />
+	</t:stitch.tabGroup>
+</t:layout>
