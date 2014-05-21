@@ -66,12 +66,16 @@ public class TapSelect2 extends TextField {
 
 				"type", owntype,
 
-				"name", InternalUtils.isBlank(name) ? getControlName() : name,
+				"name", getName(),
 
-				"id", InternalUtils.isBlank(name) ? getControlName() : name,
+				"id", getClientId(),
 
 				"value", value,
 
 				"size", getWidth());
+	}
+
+	private String getName() {
+		return InternalUtils.isBlank(name) ? getControlName() : name;
 	}
 }

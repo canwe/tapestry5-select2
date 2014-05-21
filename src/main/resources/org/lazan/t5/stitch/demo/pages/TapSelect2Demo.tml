@@ -27,8 +27,8 @@
             <t:stitch.multiselect2 t:id='multiSelectDemoWithModel' id='multiSelectDemoWithModel'
                                    settings="settings2"
                                    type="literal:hidden"
-                                   verbose="true"
                                    provider="countriesProvider" multiValue="countries1"/>
+            <input type="submit" value="Submit"/>
         </t:form>
     </div>
 
@@ -38,7 +38,6 @@
             <t:stitch.multiselect2 t:id='multiSelectWithTags' id='multiSelectWithTags'
                                    settings="settings3"
                                    type="literal:hidden"
-                                   verbose="true"
                                    provider="countriesProvider" multiValue="countries2"/>
             <input type="submit" value="Submit"/>
         </t:form>
