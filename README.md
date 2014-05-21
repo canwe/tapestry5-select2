@@ -1,1 +1,1 @@
-See the demo running live [here](http://tapestry-stitch.uklance.cloudbees.net)
+See the demo running live [here](http://tapestry-demo.herokuapp.com)
