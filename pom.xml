@@ -3,10 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lazan</groupId>
-	<artifactId>tapestry-stitch-demo</artifactId>
+	<artifactId>tapestry-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>tapestry-stitch-demo</name>
+	<name>tapestry-demo</name>
 	<dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
