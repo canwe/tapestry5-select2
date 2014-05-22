@@ -13,8 +13,8 @@ import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.InjectContainer;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.internal.util.InternalUtils;
 import org.apache.tapestry5.json.JSONObject;
-import org.apache.tapestry5.services.javascript.InitializationPriority;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 // The @Import tells Tapestry to put a link to the file in the head of the page so that the browser will pull it in.
@@ -39,13 +39,16 @@ public class ZoneUpdater {
     @Parameter(name = "prefix", defaultPrefix = BindingConstants.LITERAL, value = "default")
     private String prefix;
 
+    @Parameter(name = "elementId")
+    private String elementId;
+
     @Parameter(name = "context")
     private Object[] context;
 
     /**
      * The zone to be updated by us.
      */
-    @Parameter(name = "zone", defaultPrefix = BindingConstants.LITERAL, required = true)
+    @Parameter(name = "zone", required = true)
     private String zone;
 
     /**
@@ -76,10 +79,10 @@ public class ZoneUpdater {
         // Add some JavaScript to the page to instantiate a ZoneUpdater. It will run when the DOM has been fully loaded.
 
         JSONObject spec = new JSONObject();
-        spec.put("elementId", clientElement.getClientId());
+        spec.put("elementId", InternalUtils.isBlank(elementId) ? clientElement.getClientId() : elementId);
         spec.put("clientEvent", clientEvent);
         spec.put("listenerURI", listenerURI);
         spec.put("zoneId", zone);
-        javaScriptSupport.addScript(InitializationPriority.LATE, "%sZoneUpdater = new ZoneUpdater(%s);", prefix, spec.toString());
+        javaScriptSupport.addScript("%sZoneUpdater = new ZoneUpdater(%s);", prefix, spec.toString());
     }
 }

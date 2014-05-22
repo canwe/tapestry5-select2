@@ -13,7 +13,7 @@
     <div class="row-fluid">
         <h3>Select with underlying model</h3>
         <t:form t:id="form2">
-            <t:stitch.select2 t:id='singleSelectDemoWithModel' id='singleSelectDemoWithModel'
+            <t:stitch.select2 t:id='singleSelectDemoWithModel'
                               settings="settings2"
                               type="literal:hidden"
                               provider="countriesProvider" singleValue="country"/>
@@ -24,20 +24,21 @@
     <div class="row-fluid">
         <h3>MultiSelect with underlying model</h3>
         <t:form>
-            <t:stitch.multiselect2 t:id='multiSelectDemoWithModel' id='multiSelectDemoWithModel'
+            <t:stitch.multiselect2 t:id='multiSelectDemoWithModel'
                                    settings="settings2"
                                    type="literal:hidden"
+                                   verbose="true"
                                    provider="countriesProvider" multiValue="countries1"/>
-            <input type="submit" value="Submit"/>
         </t:form>
     </div>
 
     <div class="row-fluid">
         <h3>MultiSelect with user choices</h3>
         <t:form t:id="form4">
-            <t:stitch.multiselect2 t:id='multiSelectWithTags' id='multiSelectWithTags'
+            <t:stitch.multiselect2 t:id='multiSelectWithTags'
                                    settings="settings3"
                                    type="literal:hidden"
+                                   verbose="true"
                                    provider="countriesProvider" multiValue="countries2"/>
             <input type="submit" value="Submit"/>
         </t:form>

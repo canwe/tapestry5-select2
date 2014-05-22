@@ -4,7 +4,6 @@ import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.internal.util.InternalUtils;
 import org.apache.tapestry5.services.ComponentDefaultProvider;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.lazan.t5.stitch.select2.Settings;
@@ -22,7 +21,7 @@ public class TapSelect2 extends TextField {
 	@Parameter(allowNull = false, value = "text", defaultPrefix = BindingConstants.LITERAL)
 	private String owntype;
 
-	@Parameter(allowNull = true, required = false, value = "text", defaultPrefix = BindingConstants.LITERAL)
+	@Parameter(required = true, value = "text", defaultPrefix = BindingConstants.LITERAL)
 	private String name;
 
 	@Persist("flash")
@@ -50,6 +49,9 @@ public class TapSelect2 extends TextField {
 		return defaultProvider.defaultValidatorBinding("value", resources);
 	}
 
+	@InjectContainer
+	private ClientElement container;
+
 	@BeginRender
 	void begin(final MarkupWriter writer) {
 		resources.renderInformalParameters(writer);
@@ -57,7 +59,7 @@ public class TapSelect2 extends TextField {
 
 	@AfterRender
 	void afterRender() {
-		javaScriptSupport.addScript("jQuery('#%s').select2(%s);", getClientId(), settings.toJson());
+		javaScriptSupport.addScript("jQuery('#%s').select2(%s);", container.getClientId(), settings.toJson());
 	}
 
 	@Override
@@ -66,16 +68,12 @@ public class TapSelect2 extends TextField {
 
 				"type", owntype,
 
-				"name", getName(),
+				"name", container.getClientId(),
 
-				"id", getClientId(),
+				"id", container.getClientId(),
 
 				"value", value,
 
 				"size", getWidth());
-	}
-
-	private String getName() {
-		return InternalUtils.isBlank(name) ? getControlName() : name;
 	}
 }
