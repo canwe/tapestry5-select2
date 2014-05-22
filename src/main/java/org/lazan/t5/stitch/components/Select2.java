@@ -56,9 +56,6 @@ public class Select2 extends AbstractField {
 	@Property
 	private String value;
 
-	@Property
-	private String generatedAjaxZoneId;
-
 	@Environmental
 	private JavaScriptSupport javaScriptSupport;
 
@@ -211,14 +208,7 @@ public class Select2 extends AbstractField {
 
 	@Cached
 	public String getAjaxZoneId() {
-		if (null == generatedAjaxZoneId) {
-			generatedAjaxZoneId = javaScriptSupport.allocateClientId("ajaxZone");
-		}
-		return generatedAjaxZoneId;
-	}
-
-	public String getTapSelect2Name() {
-		return getClientId();
+		return javaScriptSupport.allocateClientId("ajaxZone");
 	}
 
 	@AfterRender
@@ -239,7 +229,7 @@ public class Select2 extends AbstractField {
 			} catch (JSONException e) {
 				throw new RuntimeException("Error converting model object to Json", e);
 			}
-			javaScriptSupport.addScript("jQuery('#%s').select2('data', %s);", select2InputField.getClientId(), selection.toJson());
+			javaScriptSupport.addScript("jQuery('#%s').select2('data', %s);", getClientId(), selection.toJson());
 		}
 	}
 
